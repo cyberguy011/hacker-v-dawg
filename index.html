@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HACKER V_DAWG</title>
+<title>HACKER V_DAWG SYSTEM</title>
 
 <style>
 body {
@@ -11,53 +11,74 @@ body {
     font-family: monospace;
     background: black;
     color: #00ff66;
-    scroll-behavior: smooth;
+    overflow: hidden;
 }
 
-/* MATRIX BACKGROUND */
+/* MATRIX */
 #matrix {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: -1;
+    z-index: 0;
 }
 
-/* NAVBAR */
-nav {
-    position: fixed;
-    top: 0;
+/* LOGIN SCREEN */
+#login {
+    position: absolute;
     width: 100%;
-    background: rgba(0,0,0,0.8);
+    height: 100%;
+    background: rgba(0,0,0,0.95);
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    gap: 20px;
-    padding: 15px;
-    z-index: 10;
-    border-bottom: 1px solid #00ff66;
+    align-items: center;
+    z-index: 5;
 }
 
-nav a {
+input {
+    background: black;
+    border: 1px solid #00ff66;
     color: #00ff66;
-    text-decoration: none;
+    padding: 10px;
+    margin: 10px;
+    width: 220px;
 }
 
-nav a:hover {
+button {
+    background: #00ff66;
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+/* BOOT SCREEN */
+#boot {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: black;
+    z-index: 6;
+    padding: 30px;
+}
+
+.boot-text {
+    white-space: pre-line;
+}
+
+/* DASHBOARD */
+#dashboard {
+    display: none;
+    position: relative;
+    z-index: 2;
+    padding: 20px;
+}
+
+h1 {
     text-shadow: 0 0 10px #00ff66;
 }
 
-/* SECTIONS */
-section {
-    padding: 100px 20px;
-    min-height: 100vh;
-}
-
-/* HERO */
-.hero h1 {
-    font-size: 3rem;
-    text-shadow: 0 0 15px #00ff66;
-}
-
-/* PROJECT CARDS */
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -65,41 +86,15 @@ section {
 }
 
 .card {
-    background: rgba(0,0,0,0.7);
     border: 1px solid #00ff66;
     padding: 20px;
-    border-radius: 10px;
+    background: rgba(0,0,0,0.7);
     transition: 0.3s;
 }
 
 .card:hover {
-    transform: translateY(-10px) scale(1.02);
-    box-shadow: 0 0 25px #00ff66;
-}
-
-/* STATS */
-.stats {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    flex-wrap: wrap;
-    text-align: center;
-}
-
-.stat h2 {
-    font-size: 2rem;
-}
-
-/* SCROLL ANIMATION */
-.hidden {
-    opacity: 0;
-    transform: translateY(50px);
-    transition: all 0.8s ease;
-}
-
-.show {
-    opacity: 1;
-    transform: translateY(0);
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #00ff66;
 }
 </style>
 </head>
@@ -108,76 +103,50 @@ section {
 
 <canvas id="matrix"></canvas>
 
-<!-- NAV -->
-<nav>
-<a href="#home">Home</a>
-<a href="#about">About</a>
-<a href="#projects">Projects</a>
-<a href="#stats">Stats</a>
-</nav>
+<!-- LOGIN -->
+<div id="login">
+    <h2>ACCESS TERMINAL</h2>
+    <input id="user" placeholder="Username">
+    <input id="pass" type="password" placeholder="Password">
+    <button onclick="login()">LOGIN</button>
+</div>
 
-<!-- HOME -->
-<section id="home" class="hero hidden">
-<h1>HACKER V_DAWG</h1>
-<p>Cybersecurity Student | Developer | Ethical Hacker</p>
-</section>
+<!-- BOOT -->
+<div id="boot">
+    <div class="boot-text" id="bootText"></div>
+</div>
 
-<!-- ABOUT -->
-<section id="about" class="hidden">
-<h2>About Me</h2>
-<p>
-I build tools, explore cybersecurity, and develop web projects using Python, Linux, and web technologies.
-</p>
-</section>
+<!-- DASHBOARD -->
+<div id="dashboard">
 
-<!-- PROJECTS -->
-<section id="projects" class="hidden">
+<h1>HACKER V_DAWG SYSTEM</h1>
+<p>Welcome back, Operator.</p>
+
 <h2>Projects</h2>
 
 <div class="grid">
 
 <div class="card">
 <h3>Cyber Notes</h3>
-<p>Secure Python note system with login features.</p>
+<p>Secure note system with login encryption.</p>
 </div>
 
 <div class="card">
 <h3>Portfolio</h3>
-<p>Cyber-themed Vercel-style portfolio UI.</p>
+<p>Cyber Vercel-style portfolio UI.</p>
 </div>
 
 <div class="card">
-<h3>Automation Tools</h3>
-<p>CLI tools for productivity and learning.</p>
+<h3>Tools</h3>
+<p>Automation scripts for Termux/Linux.</p>
 </div>
 
 </div>
-</section>
 
-<!-- STATS -->
-<section id="stats" class="hidden">
-<h2>Stats</h2>
-
-<div class="stats">
-<div class="stat">
-<h2 id="projectsCount">0</h2>
-<p>Projects</p>
 </div>
-
-<div class="stat">
-<h2 id="skillsCount">0</h2>
-<p>Skills</p>
-</div>
-
-<div class="stat">
-<h2 id="yearsCount">0</h2>
-<p>Experience</p>
-</div>
-</div>
-
-</section>
 
 <script>
+
 /* MATRIX */
 const canvas = document.getElementById("matrix");
 const ctx = canvas.getContext("2d");
@@ -185,59 +154,74 @@ const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-let letters = "01HACKERVDAWG$#@%&";
+let letters = "01HACKERVDAWG$#@%&Ξ";
 letters = letters.split("");
 
 const fontSize = 14;
 const columns = canvas.width / fontSize;
-
 const drops = Array(Math.floor(columns)).fill(1);
 
 function drawMatrix() {
-    ctx.fillStyle = "rgba(0, 0, 0, 0.08)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "rgba(0,0,0,0.08)";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
 
     ctx.fillStyle = "#00ff66";
     ctx.font = fontSize + "px monospace";
 
-    for (let i = 0; i < drops.length; i++) {
-        const text = letters[Math.floor(Math.random() * letters.length)];
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+    for(let i=0;i<drops.length;i++){
+        let text = letters[Math.floor(Math.random()*letters.length)];
+        ctx.fillText(text,i*fontSize,drops[i]*fontSize);
 
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-            drops[i] = 0;
+        if(drops[i]*fontSize > canvas.height && Math.random()>0.975){
+            drops[i]=0;
         }
-
         drops[i]++;
     }
 }
+setInterval(drawMatrix,33);
 
-setInterval(drawMatrix, 33);
+/* LOGIN */
+function login(){
+    let u = document.getElementById("user").value;
+    let p = document.getElementById("pass").value;
 
-/* SCROLL REVEAL */
-const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add("show");
-        }
-    });
-});
-
-document.querySelectorAll(".hidden").forEach(el => observer.observe(el));
-
-/* COUNTERS */
-function count(id, end) {
-    let i = 0;
-    let interval = setInterval(() => {
-        document.getElementById(id).innerText = i;
-        i++;
-        if (i > end) clearInterval(interval);
-    }, 100);
+    if(u && p){
+        document.getElementById("login").style.display="none";
+        bootSequence();
+    } else {
+        alert("ACCESS DENIED");
+    }
 }
 
-count("projectsCount", 12);
-count("skillsCount", 8);
-count("yearsCount", 2);
+/* BOOT SEQUENCE */
+function bootSequence(){
+    document.getElementById("boot").style.display="block";
+
+    let lines = [
+        "Initializing system...",
+        "Loading kernel modules...",
+        "Bypassing firewall...",
+        "Decrypting user profile...",
+        "Access granted ✔",
+        "Launching dashboard..."
+    ];
+
+    let i=0;
+    let el=document.getElementById("bootText");
+
+    let interval=setInterval(()=>{
+        el.innerHTML += lines[i] + "\n";
+        i++;
+        if(i>=lines.length){
+            clearInterval(interval);
+            setTimeout(()=>{
+                document.getElementById("boot").style.display="none";
+                document.getElementById("dashboard").style.display="block";
+            },1000);
+        }
+    },800);
+}
+
 </script>
 
 </body>
