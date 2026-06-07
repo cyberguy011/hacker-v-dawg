@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HACKER V_DAWG</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#000;
+    color:#fff;
+    line-height:1.6;
+}
+
+header{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+}
+
+.hero h1{
+    font-size:4rem;
+    color:#00ff66;
+    text-shadow:0 0 20px #00ff66;
+}
+
+.hero p{
+    margin:15px 0;
+    font-size:1.2rem;
+}
+
+.btn{
+    display:inline-block;
+    padding:12px 25px;
+    margin-top:15px;
+    border:2px solid #00ff66;
+    color:#00ff66;
+    text-decoration:none;
+    border-radius:5px;
+    transition:0.3s;
+}
+
+.btn:hover{
+    background:#00ff66;
+    color:#000;
+}
+
+section{
+    padding:80px 20px;
+    max-width:1000px;
+    margin:auto;
+}
+
+h2{
+    text-align:center;
+    color:#00ff66;
+    margin-bottom:30px;
+}
+
+.skills,
+.projects{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:#111;
+    padding:20px;
+    border:1px solid #00ff66;
+    border-radius:10px;
+    text-align:center;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    transition:0.3s;
+}
+
+footer{
+    text-align:center;
+    padding:30px;
+    border-top:1px solid #00ff66;
+}
+
+.typing{
+    color:#00ff66;
+    border-right:2px solid #00ff66;
+    white-space:nowrap;
+    overflow:hidden;
+    width:0;
+    animation:typing 4s steps(30,end) forwards,
+    blink .7s infinite;
+}
+
+@keyframes typing{
+    from{width:0}
+    to{width:100%}
+}
+
+@keyframes blink{
+    50%{border-color:transparent}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="hero">
+<h1>HACKER V_DAWG</h1>
+<p class="typing">Cybersecurity Student | Python Developer | Future Security Analyst</p>
+<br>
+<a href="#projects" class="btn">View Projects</a>
+</div>
+</header>
+
+<section id="about">
+<h2>About Me</h2>
+<p>
+I'm a cybersecurity student passionate about ethical hacking,
+Linux, Python programming, and web development.
+I enjoy building tools, learning new technologies,
+and improving my technical skills every day.
+</p>
+</section>
+
+<section id="skills">
+<h2>Skills</h2>
+
+<div class="skills">
+<div class="card">Python</div>
+<div class="card">HTML & CSS</div>
+<div class="card">Git & GitHub</div>
+<div class="card">Linux / Termux</div>
+<div class="card">Cybersecurity</div>
+<div class="card">Problem Solving</div>
+</div>
+
+</section>
+
+<section id="projects">
+<h2>Projects</h2>
+
+<div class="projects">
+
+<div class="card">
+<h3>Cyber Notes</h3>
+<p>A note-taking application built with Python.</p>
+</div>
+
+<div class="card">
+<h3>For You Website</h3>
+<p>A personalized web project hosted on GitHub Pages.</p>
+</div>
+
+<div class="card">
+<h3>Python Calculator</h3>
+<p>A command-line calculator built in Python.</p>
+</div>
+
+</div>
+
+</section>
+
+<section id="contact">
+<h2>Contact</h2>
+
+<p style="text-align:center;">
+Interested in collaborating or working together?
+</p>
+
+<div style="text-align:center;margin-top:20px;">
+<a href="mailto:you@example.com" class="btn">Contact Me</a>
+</div>
+
+</section>
+
+<footer>
+<p>© 2026 HACKER V_DAWG | Built with HTML & CSS</p>
+</footer>
+
+</body>
+</html>
