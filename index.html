@@ -87,10 +87,6 @@ for(let i=0;i<drops.length;i++){let t=letters[Math.floor(Math.random()*letters.l
 ctx.fillText(t,i*fs,drops[i]*fs); if(drops[i]*fs>canvas.height&&Math.random()>.975)drops[i]=0; drops[i]++;}
 },33);
 
-function login(){
-if(user.value && pass.value){login.style.display='none'; boot.style.display='flex'; bootSequence();}
-else alert('ACCESS DENIED');
-}
 function bootSequence(){
 const lines=["Initializing...","Loading modules...","Checking security...","Access granted ✔","Launching dashboard..."];
 let i=0; const el=document.getElementById('bootText');
@@ -106,7 +102,18 @@ let c=cmd.value.toLowerCase();
 if(c==="help") terminalOutput.innerHTML+="help, about, projects, clear<br><br>";
 else if(c==="about") terminalOutput.innerHTML+="GHOST HACKER Portfolio<br><br>";
 else if(c==="projects") terminalOutput.innerHTML+="Cyber Notes, Portfolio, CyberLab, Termux Toolkit<br><br>";
-else if(c==="clear") terminalOutput.innerHTML="";
+		function login(){
+    const username = document.getElementById("user").value;
+    const password = document.getElementById("pass").value;
+
+    if(username === "admin" && password === "1234"){
+        document.getElementById("login").style.display = "none";
+        document.getElementById("boot").style.display = "flex";
+        bootSequence();
+    } else {
+        alert("ACCESS DENIED");
+    }
+}else if(c==="clear") terminalOutput.innerHTML="";
 else terminalOutput.innerHTML+="Unknown command<br><br>";
 cmd.value="";
 }
